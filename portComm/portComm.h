@@ -4,7 +4,7 @@
 #include<QSerialPort>
 #include<QSerialPortInfo>
 #include<algorithm>
-#include <QMessageBox>
+#include <QMessageBox> 
 
 #include "ui_portComm.h"
 #if _MSC_VER >= 1600
