@@ -5,7 +5,7 @@
 #include<QSerialPortInfo>
 #include<algorithm>
 #include <QMessageBox> 
-
+//dtest
 #include "ui_portComm.h"
 #if _MSC_VER >= 1600
 #pragma execution_character_set("utf-8")
