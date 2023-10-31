@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="portComm"/>
+  <qresource lang="close">
+    <file>C:/Users/Administrator/Desktop/open.png</file>
+    <file>C:/Users/Administrator/Desktop/close.png</file>
+  </qresource>
+</RCC>

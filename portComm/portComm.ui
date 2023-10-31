@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>portCommClass</class>
+ <widget class="QMainWindow" name="portCommClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>795</width>
+    <height>293</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>portComm</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QTabWidget" name="tabWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>771</width>
+      <height>241</height>
+     </rect>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>Tab 1</string>
+     </attribute>
+     <widget class="QGroupBox" name="groupBox_show">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>110</y>
+        <width>491</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string/>
+      </property>
+      <widget class="QRadioButton" name="rb_hex_recive">
+       <property name="geometry">
+        <rect>
+         <x>270</x>
+         <y>10</y>
+         <width>47</width>
+         <height>19</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>HEX</string>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="autoRepeat">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="pb_clear_receive">
+       <property name="geometry">
+        <rect>
+         <x>270</x>
+         <y>30</y>
+         <width>81</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>clear receive</string>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
+       </property>
+      </widget>
+      <widget class="QPlainTextEdit" name="pte_receive">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>254</width>
+         <height>71</height>
+        </rect>
+       </property>
+       <property name="backgroundVisible">
+        <bool>false</bool>
+       </property>
+       <property name="placeholderText">
+        <string>此处显示接收到的数据...</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="groupBox_send">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>10</y>
+        <width>491</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string/>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+      <widget class="QPlainTextEdit" name="pte_send">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>260</width>
+         <height>71</height>
+        </rect>
+       </property>
+       <property name="placeholderText">
+        <string>在此输入待发送数据...</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="rb_hex_send">
+       <property name="geometry">
+        <rect>
+         <x>276</x>
+         <y>10</y>
+         <width>47</width>
+         <height>19</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>HEX</string>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
+       </property>
+       <property name="autoRepeat">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="pb_send_data">
+       <property name="geometry">
+        <rect>
+         <x>276</x>
+         <y>30</y>
+         <width>75</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>send data</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="pb_clear_send">
+       <property name="geometry">
+        <rect>
+         <x>276</x>
+         <y>60</y>
+         <width>75</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>clear input</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="pb_send_busRTU">
+       <property name="geometry">
+        <rect>
+         <x>360</x>
+         <y>30</y>
+         <width>101</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>send busRTU</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="layout_setter">
+      <property name="geometry">
+       <rect>
+        <x>9</x>
+        <y>10</y>
+        <width>143</width>
+        <height>191</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0" colspan="2">
+        <widget class="QPushButton" name="pb_check_port">
+         <property name="text">
+          <string>reCheck port</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_port">
+         <property name="text">
+          <string>port</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QComboBox" name="cb_port"/>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_baud">
+         <property name="text">
+          <string>baudbit</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QComboBox" name="cb_baud"/>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_paritybit">
+         <property name="text">
+          <string>paritybit</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QComboBox" name="cb_paritybit"/>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_databit">
+         <property name="text">
+          <string>databit</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QComboBox" name="cb_databit"/>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="label_stopbit">
+         <property name="text">
+          <string>stopbit</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QComboBox" name="cb_stopbit"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="geometry">
+       <rect>
+        <x>158</x>
+        <y>10</y>
+        <width>95</width>
+        <height>191</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string/>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QPushButton" name="pb_open_port">
+         <property name="text">
+          <string>open</string>
+         </property>
+         <property name="icon">
+          <iconset resource="portComm.qrc">
+           <normaloff>:/C:/Users/Administrator/Desktop/open.png</normaloff>:/C:/Users/Administrator/Desktop/open.png</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_port_state">
+         <property name="text">
+          <string>closing</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pb_close_port">
+         <property name="text">
+          <string>close</string>
+         </property>
+         <property name="icon">
+          <iconset resource="portComm.qrc">
+           <normaloff>:/C:/Users/Administrator/Desktop/close.png</normaloff>:/C:/Users/Administrator/Desktop/close.png</iconset>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_2">
+     <attribute name="title">
+      <string>Tab 2</string>
+     </attribute>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="portComm.qrc"/>
+ </resources>
+ <connections/>
+</ui>
