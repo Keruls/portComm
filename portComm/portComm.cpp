@@ -156,6 +156,7 @@ bool portComm::send()
 //无协议接收
 bool portComm::receive()
 {
+
 	qDebug() << "receive!";
 	QByteArray receive_byte = serial->readAll();
 	if (ui.rb_hex_recive->isChecked()) {
