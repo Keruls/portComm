@@ -118,7 +118,7 @@
        </property>
        <property name="icon">
         <iconset resource="portComm.qrc">
-         <normaloff>:/C:/Users/Administrator/Desktop/open.png</normaloff>:/C:/Users/Administrator/Desktop/open.png</iconset>
+         <normaloff>:/qrc/open.png</normaloff>:/qrc/open.png</iconset>
        </property>
       </widget>
      </item>
@@ -165,7 +165,7 @@
        </property>
        <property name="icon">
         <iconset resource="portComm.qrc">
-         <normaloff>:/C:/Users/Administrator/Desktop/close.png</normaloff>:/C:/Users/Administrator/Desktop/close.png</iconset>
+         <normaloff>:/qrc/close.png</normaloff>:/qrc/close.png</iconset>
        </property>
       </widget>
      </item>
@@ -465,7 +465,7 @@
     <property name="title">
      <string/>
     </property>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>10</x>
