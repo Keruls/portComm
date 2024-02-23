@@ -6,357 +6,528 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>795</width>
-    <height>293</height>
+    <width>731</width>
+    <height>457</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>portComm</string>
   </property>
   <widget class="QWidget" name="centralWidget">
+   <widget class="QGroupBox" name="layout_setter">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>20</y>
+      <width>141</width>
+      <height>241</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0" colspan="2">
+      <widget class="QPushButton" name="pb_check_port">
+       <property name="text">
+        <string>reCheck port</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_port">
+       <property name="text">
+        <string>port</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QComboBox" name="cb_port"/>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_baud">
+       <property name="text">
+        <string>baudbit</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QComboBox" name="cb_baud"/>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_paritybit">
+       <property name="text">
+        <string>paritybit</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QComboBox" name="cb_paritybit"/>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_databit">
+       <property name="text">
+        <string>databit</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QComboBox" name="cb_databit"/>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="label_stopbit">
+       <property name="text">
+        <string>stopbit</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QComboBox" name="cb_stopbit"/>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>630</x>
+      <y>20</y>
+      <width>91</width>
+      <height>241</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string/>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QPushButton" name="pb_open_port">
+       <property name="text">
+        <string>open</string>
+       </property>
+       <property name="icon">
+        <iconset resource="portComm.qrc">
+         <normaloff>:/C:/Users/Administrator/Desktop/open.png</normaloff>:/C:/Users/Administrator/Desktop/open.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_port_state">
+       <property name="text">
+        <string>closing</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pb_close_port">
+       <property name="text">
+        <string>close</string>
+       </property>
+       <property name="icon">
+        <iconset resource="portComm.qrc">
+         <normaloff>:/C:/Users/Administrator/Desktop/close.png</normaloff>:/C:/Users/Administrator/Desktop/close.png</iconset>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QPlainTextEdit" name="pte_receive">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>461</width>
+      <height>191</height>
+     </rect>
+    </property>
+    <property name="backgroundVisible">
+     <bool>false</bool>
+    </property>
+    <property name="placeholderText">
+     <string>此处显示接收到的数据...</string>
+    </property>
+   </widget>
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
-      <width>771</width>
-      <height>241</height>
+      <y>270</y>
+      <width>711</width>
+      <height>181</height>
      </rect>
     </property>
     <property name="currentIndex">
      <number>0</number>
     </property>
-    <widget class="QWidget" name="tab">
+    <widget class="QWidget" name="un_protocol">
      <attribute name="title">
-      <string>Tab 1</string>
+      <string>无协议</string>
      </attribute>
-     <widget class="QGroupBox" name="groupBox_show">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>260</x>
-        <y>110</y>
-        <width>491</width>
-        <height>91</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string/>
-      </property>
-      <widget class="QRadioButton" name="rb_hex_recive">
-       <property name="geometry">
-        <rect>
-         <x>270</x>
-         <y>10</y>
-         <width>47</width>
-         <height>19</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>HEX</string>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>16</width>
-         <height>16</height>
-        </size>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-       <property name="autoRepeat">
-        <bool>false</bool>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="pb_clear_receive">
-       <property name="geometry">
-        <rect>
-         <x>270</x>
-         <y>30</y>
-         <width>81</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>clear receive</string>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>16</width>
-         <height>16</height>
-        </size>
-       </property>
-      </widget>
-      <widget class="QPlainTextEdit" name="pte_receive">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>10</y>
-         <width>254</width>
-         <height>71</height>
-        </rect>
-       </property>
-       <property name="backgroundVisible">
-        <bool>false</bool>
-       </property>
-       <property name="placeholderText">
-        <string>此处显示接收到的数据...</string>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QGroupBox" name="groupBox_send">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
+        <x>10</x>
         <y>10</y>
-        <width>491</width>
-        <height>91</height>
+        <width>681</width>
+        <height>131</height>
        </rect>
       </property>
-      <property name="title">
-       <string/>
-      </property>
-      <property name="checkable">
-       <bool>false</bool>
-      </property>
-      <widget class="QPlainTextEdit" name="pte_send">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>10</y>
-         <width>260</width>
-         <height>71</height>
-        </rect>
-       </property>
-       <property name="placeholderText">
-        <string>在此输入待发送数据...</string>
-       </property>
-      </widget>
-      <widget class="QRadioButton" name="rb_hex_send">
-       <property name="geometry">
-        <rect>
-         <x>276</x>
-         <y>10</y>
-         <width>47</width>
-         <height>19</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>HEX</string>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>16</width>
-         <height>16</height>
-        </size>
-       </property>
-       <property name="autoRepeat">
-        <bool>false</bool>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="pb_send_data">
-       <property name="geometry">
-        <rect>
-         <x>276</x>
-         <y>30</y>
-         <width>75</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>send data</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="pb_clear_send">
-       <property name="geometry">
-        <rect>
-         <x>276</x>
-         <y>60</y>
-         <width>75</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>clear input</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="pb_send_busRTU">
-       <property name="geometry">
-        <rect>
-         <x>360</x>
-         <y>30</y>
-         <width>101</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>send busRTU</string>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QGroupBox" name="layout_setter">
-      <property name="geometry">
-       <rect>
-        <x>9</x>
-        <y>10</y>
-        <width>143</width>
-        <height>191</height>
-       </rect>
-      </property>
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="0" colspan="2">
-        <widget class="QPushButton" name="pb_check_port">
-         <property name="text">
-          <string>reCheck port</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_port">
-         <property name="text">
-          <string>port</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QComboBox" name="cb_port"/>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_baud">
-         <property name="text">
-          <string>baudbit</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QComboBox" name="cb_baud"/>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_paritybit">
-         <property name="text">
-          <string>paritybit</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QComboBox" name="cb_paritybit"/>
-       </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="label_databit">
-         <property name="text">
-          <string>databit</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
-        <widget class="QComboBox" name="cb_databit"/>
-       </item>
-       <item row="5" column="0">
-        <widget class="QLabel" name="label_stopbit">
-         <property name="text">
-          <string>stopbit</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="1">
-        <widget class="QComboBox" name="cb_stopbit"/>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QGroupBox" name="groupBox">
-      <property name="geometry">
-       <rect>
-        <x>158</x>
-        <y>10</y>
-        <width>95</width>
-        <height>191</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string/>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout">
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <widget class="QPushButton" name="pb_open_port">
-         <property name="text">
-          <string>open</string>
-         </property>
-         <property name="icon">
-          <iconset resource="portComm.qrc">
-           <normaloff>:/C:/Users/Administrator/Desktop/open.png</normaloff>:/C:/Users/Administrator/Desktop/open.png</iconset>
+        <widget class="QPlainTextEdit" name="pte_send">
+         <property name="placeholderText">
+          <string>在此输入待发送数据...</string>
          </property>
         </widget>
        </item>
        <item>
-        <spacer name="verticalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
+        <widget class="QGroupBox" name="groupBox_2">
+         <property name="title">
+          <string/>
          </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_port_state">
-         <property name="text">
-          <string>closing</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pb_close_port">
-         <property name="text">
-          <string>close</string>
-         </property>
-         <property name="icon">
-          <iconset resource="portComm.qrc">
-           <normaloff>:/C:/Users/Administrator/Desktop/close.png</normaloff>:/C:/Users/Administrator/Desktop/close.png</iconset>
-         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QRadioButton" name="rb_hex_send">
+            <property name="text">
+             <string>send HEX</string>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>16</width>
+              <height>16</height>
+             </size>
+            </property>
+            <property name="autoRepeat">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pb_send_data">
+            <property name="text">
+             <string>send data</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pb_clear_send">
+            <property name="text">
+             <string>clear input</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
       </layout>
      </widget>
     </widget>
-    <widget class="QWidget" name="tab_2">
+    <widget class="QWidget" name="modus_rtu">
      <attribute name="title">
-      <string>Tab 2</string>
+      <string>modus_rtu</string>
      </attribute>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>11</x>
+        <y>10</y>
+        <width>681</width>
+        <height>73</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QPlainTextEdit" name="pte_send_1">
+         <property name="plainText">
+          <string/>
+         </property>
+         <property name="placeholderText">
+          <string>调整中，暂不可用...</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="QPushButton" name="pb_send_busRTU">
+           <property name="text">
+            <string>send</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>80</y>
+        <width>681</width>
+        <height>73</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QPlainTextEdit" name="pte_send_2">
+         <property name="placeholderText">
+          <string>调整中，暂不可用......</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item>
+          <widget class="QRadioButton" name="rb_hex_recive_2">
+           <property name="text">
+            <string>HEX</string>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>16</width>
+             <height>16</height>
+            </size>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="autoRepeat">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pb_send_busRTU_2">
+           <property name="text">
+            <string>send</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="modbus_tcp">
+     <attribute name="title">
+      <string>modbus_tcp</string>
+     </attribute>
+     <widget class="QWidget" name="layoutWidget_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>80</y>
+        <width>681</width>
+        <height>73</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <item>
+        <widget class="QPlainTextEdit" name="pte_send_4">
+         <property name="placeholderText">
+          <string>调整中，暂不可用...</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_6">
+         <item>
+          <widget class="QRadioButton" name="rb_hex_recive_4">
+           <property name="text">
+            <string>HEX</string>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>16</width>
+             <height>16</height>
+            </size>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="autoRepeat">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pb_send_busRTU_4">
+           <property name="text">
+            <string>send</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>681</width>
+        <height>73</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <item>
+        <widget class="QPlainTextEdit" name="pte_send_3">
+         <property name="placeholderText">
+          <string>调整中，暂不可用...</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_5">
+         <item>
+          <widget class="QRadioButton" name="rb_hex_recive_3">
+           <property name="text">
+            <string>HEX</string>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>16</width>
+             <height>16</height>
+            </size>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="autoRepeat">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pb_send_busRTU_3">
+           <property name="text">
+            <string>send</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </widget>
+   <widget class="QGroupBox" name="groupBox_3">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>220</y>
+      <width>461</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string/>
+    </property>
+    <widget class="QWidget" name="">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>4</y>
+       <width>441</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_6">
+      <item>
+       <widget class="QRadioButton" name="rb_hex_recive">
+        <property name="text">
+         <string>recive HEX</string>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="autoRepeat">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="rb_str_recive">
+        <property name="text">
+         <string>recive String</string>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="autoRepeat">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="clear_recive">
+        <property name="text">
+         <string>clear recive</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+   <zorder>groupBox_3</zorder>
+   <zorder>layout_setter</zorder>
+   <zorder>groupBox</zorder>
+   <zorder>pte_receive</zorder>
+   <zorder>tabWidget</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

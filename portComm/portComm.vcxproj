@@ -37,9 +37,10 @@
     <Import Project="$(QtMsBuild)\qt_defaults.props" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
-    <QtInstall>6.5</QtInstall>
+    <QtInstall>6.5.3_msvc2019_64</QtInstall>
     <QtModules>core;gui;widgets;serialbus;serialport</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
+    <QtPathLibraryExecutables>bin</QtPathLibraryExecutables>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
     <QtInstall>6.5</QtInstall>
@@ -68,6 +69,9 @@
     <ClCompile>
       <AdditionalOptions>/UTF-8</AdditionalOptions>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
@@ -97,11 +101,15 @@
     <QtRcc Include="portComm.qrc" />
     <QtUic Include="portComm.ui" />
     <QtMoc Include="portComm.h" />
+    <ClCompile Include="BusTcp.cpp" />
     <ClCompile Include="portComm.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="busTcp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

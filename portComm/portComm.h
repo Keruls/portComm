@@ -5,11 +5,12 @@
 #include<QSerialPortInfo>
 #include<algorithm>
 #include <QMessageBox> 
-//dtest
 #include "ui_portComm.h"
+#include "busTcp.h"
 #if _MSC_VER >= 1600
 #pragma execution_character_set("utf-8")
 #endif
+
 class portComm : public QMainWindow
 {
     Q_OBJECT
@@ -26,18 +27,20 @@ private:
     QStringList data;
     QStringList stop;
     QStringList parity;
+    BusTcp *mybus;
+private:
     void init_setting();
     void init_combobox();
     void init_connect();
     QString string2hex(const QString& str);
 public slots:
-    void slot_reCheckPort_pressed();
     bool send();
     bool receive();
     bool bus_receive();
     void port_open();
     bool bus_send();
-    void cutShowMode(bool a);
+    void recive_hex(bool a);
+    void recive_str(bool a);
 public:
     int calculateCrc(const unsigned char* data, int length);
     unsigned char checkReceiveCrc(const unsigned char* data, int length);
