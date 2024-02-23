@@ -118,7 +118,7 @@
        </property>
        <property name="icon">
         <iconset resource="portComm.qrc">
-         <normaloff>:/qrc/open.png</normaloff>:/qrc/open.png</iconset>
+         <normaloff>:/C:/Users/Administrator/Desktop/open.png</normaloff>:/C:/Users/Administrator/Desktop/open.png</iconset>
        </property>
       </widget>
      </item>
@@ -165,7 +165,7 @@
        </property>
        <property name="icon">
         <iconset resource="portComm.qrc">
-         <normaloff>:/qrc/close.png</normaloff>:/qrc/close.png</iconset>
+         <normaloff>:/C:/Users/Administrator/Desktop/close.png</normaloff>:/C:/Users/Administrator/Desktop/close.png</iconset>
        </property>
       </widget>
      </item>
@@ -465,7 +465,7 @@
     <property name="title">
      <string/>
     </property>
-    <widget class="QWidget" name="layoutWidget">
+    <widget class="QWidget" name="">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -506,9 +506,6 @@
          </size>
         </property>
         <property name="checkable">
-         <bool>true</bool>
-        </property>
-        <property name="checked">
          <bool>true</bool>
         </property>
         <property name="autoRepeat">
