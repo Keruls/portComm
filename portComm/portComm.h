@@ -19,30 +19,30 @@ class portComm : public QMainWindow
 public:
     portComm(QWidget *parent = nullptr);
     ~portComm();
-    
+signals:
+public slots:
+    void onPortOpen();
+    void onShowResponse(QString text);
+    bool onStrSend();
+    bool onStrReceive();
+    bool onBusReceive();
+    bool onBusSend();
+    void onReceiveHex(bool a);
+    void onReceiveStr(bool a);
+public:
+    int calculateCrc(const unsigned char* data, int length);
+    unsigned char checkReceiveCrc(const unsigned char* data, int length);
 private:
     Ui::portCommClass ui;
-    QSerialPort *serial;
+    QSerialPort* serial;
     QStringList baud;
     QStringList data;
     QStringList stop;
     QStringList parity;
-    BusTcp *mybus;
+    BusTcp* mybus;
 private:
-    void init_setting();
-    void init_combobox();
-    void init_connect();
-    QString string2hex(const QString& str);
-public slots:
-    bool send();
-    bool receive();
-    bool bus_receive();
-    void port_open();
-    bool bus_send();
-    void recive_hex(bool a);
-    void recive_str(bool a);
-public:
-    int calculateCrc(const unsigned char* data, int length);
-    unsigned char checkReceiveCrc(const unsigned char* data, int length);
-    
+    void initSetting();
+    void initUi();
+    void initConnect();
+    QString string2Hex(const QString& str);
 };
