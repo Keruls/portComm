@@ -14,14 +14,13 @@ portComm::portComm(QWidget* parent)
 	initSetting();
 	initConnect();
 
-	
+
 }
 portComm::~portComm()
 {
 	mybus->deleteLater();
 }
 
-//default serial port setting
 void portComm::initSetting()
 {
 	serial->setBaudRate(QSerialPort::Baud9600);//波特率_9600
@@ -30,7 +29,6 @@ void portComm::initSetting()
 	serial->setStopBits(QSerialPort::OneStop);//停止位_1
 }
 
-//初始化combobox
 void portComm::initUi()
 {
 	setFixedSize(731, 463);
@@ -62,7 +60,7 @@ void portComm::initConnect()
 		//check system serial port to combobox
 		ui.cb_port->clear();
 		QList<QSerialPortInfo> port_info = QSerialPortInfo::availablePorts();
-		for (const QSerialPortInfo& i : port_info) 
+		for (const QSerialPortInfo& i : port_info)
 		{
 			ui.cb_port->addItem(i.portName());
 		}
@@ -72,12 +70,23 @@ void portComm::initConnect()
 	connect(ui.pb_send_data, &QPushButton::pressed, this, &portComm::onStrSend);
 	connect(ui.pb_clear_send, &QPushButton::pressed, ui.pte_send, &QPlainTextEdit::clear);
 	connect(ui.clear_recive, &QPushButton::pressed, ui.pte_receive, &QPlainTextEdit::clear);
+
 	//string panel ui connect
 	connect(serial, &QSerialPort::readyRead, this, &portComm::onStrReceive);//listen recive buffer
 	connect(ui.rb_hex_recive, &QRadioButton::clicked, this, &portComm::onReceiveHex);
 	connect(ui.rb_str_recive, &QRadioButton::clicked, this, &portComm::onReceiveStr);
 	connect(ui.pb_send_busRTU, &QPushButton::pressed, this, &portComm::onBusSend);
+
 	//modbusTcp panel ui connect
+	connect(ui.cb_bustcp_mode, &QComboBox::currentIndexChanged, this, [&](int index) {
+		switch (index)
+		{
+		case 0:ui.le_bustcp_data_w->setPlaceholderText("input 2 bytes hex num, split by ':'."); break;
+		case 1:ui.le_bustcp_data_w->setPlaceholderText("input xxx"); break;
+		case 2:ui.le_bustcp_data_w->setPlaceholderText("input '0'/'1', separate by ':' is allowed."); break;
+		case 3:ui.le_bustcp_data_w->setPlaceholderText("input 2 bytes hex num, split by ':'."); break;
+		}
+		});
 	connect(ui.pb_bustcp_connect, &QPushButton::pressed, this, [&]() {
 		//check ip/port is vaild or not.
 		//...
@@ -86,39 +95,48 @@ void portComm::initConnect()
 		});
 	connect(mybus, &BusTcp::connectState, this, [&](bool state) {
 		//according to connect state set style and editable.
-		if (state) { 
+		if (state) {
 			ui.pb_bustcp_connect->setStyleSheet("background-color:green");
 			ui.le_bustcp_ip->setReadOnly(1);
 			ui.le_bustcp_port->setReadOnly(1);
 			ui.le_bustcp_slaveid->setReadOnly(1);
 		}
-		else { 
-			ui.pb_bustcp_connect->setStyleSheet("background-color:red"); 
+		else {
+			ui.pb_bustcp_connect->setStyleSheet("background-color:red");
 			ui.le_bustcp_ip->setReadOnly(0);
 			ui.le_bustcp_port->setReadOnly(0);
 			ui.le_bustcp_slaveid->setReadOnly(0);
 		}
 		});
 	connect(ui.pb_bustcp_sendread, &QPushButton::pressed, this, [&]() {
-		mybus->sendRead(ui.cb_bustcp_mode->currentIndex(), ui.le_bustcp_slaveid->text().toInt(), ui.le_bustcp_addr_r->text().toInt(), ui.le_bustcp_num_r->text().toInt());
+		mybus->sendRead(ui.cb_bustcp_mode->currentIndex(), \
+			ui.le_bustcp_slaveid->text().toInt(), \
+			ui.le_bustcp_addr_r->text().toInt(), \
+			ui.le_bustcp_num_r->text().toInt());
+		});
+	connect(ui.pb_bustcp_sendwrite, &QPushButton::pressed, this, [&]() {
+		mybus->sendWrite(ui.cb_bustcp_mode->currentIndex(), \
+			ui.le_bustcp_slaveid->text().toInt(), \
+			ui.le_bustcp_addr_w->text().toInt(), \
+			ui.le_bustcp_num_w->text().toInt(), \
+			ui.le_bustcp_data_w->text());
 		});
 	connect(mybus, &BusTcp::receiveData, this, [&](QString s) {
 		ui.pte_receive->appendPlainText("receive：\n" + s);
 		});
 }
 
-//open serial port
 void portComm::onPortOpen()
 {
 	//设置需要使用的端口号
 	serial->setPortName(ui.cb_port->currentText());
 	//设置端口通信属性
-	if (serial->isOpen()) 
+	if (serial->isOpen())
 	{
 		ui.label_port_state->setText("port opening");
 		qDebug() << "current port name:" << serial->portName();
 	}
-	else 
+	else
 	{
 		serial->setBaudRate(ui.cb_baud->currentText().toInt());
 		//serial->setParity(ui.cb_paritybit->currentText().toInt());
@@ -143,7 +161,7 @@ void portComm::onPortOpen()
 			ui.label_port_state->setText("opening");
 			qDebug() << "current port name:" << serial->portName();
 		}
-		else 
+		else
 		{
 			ui.label_port_state->setText("closing");
 			qDebug() << "port open failed!";
@@ -151,74 +169,49 @@ void portComm::onPortOpen()
 	}
 }
 
-void portComm::onShowResponse(QString text)
-{
-	
-}
-
-//send string data
 bool portComm::onStrSend()
 {
 	QString send_text = ui.pte_send->toPlainText();
-	//发送十六进制数
+	//send format string of hex
 	if (ui.rb_hex_send->isChecked())
 	{
 		QByteArray send_hex;
-
-		for (auto c : send_text) 
-		{
-			int x = c.toLatin1();
-			if (x >= 'a' && x <= 'f' || x >= 'A' && x <= 'F' || x >= '0' && x <= '9' || x == ' ' || x == '-') 
-			{
-				send_hex = QByteArray::fromHex(send_text.toLatin1());
-			}
-			else 
-			{
-				//弹窗提示
-				QMessageBox mb;
-				mb.setIcon(QMessageBox::Icon::Warning);
-				mb.setText("请输入数字或（a-f/A-F）英文字符!");
-				mb.exec();
-				return 0;
-			}
-		}
+		if (!tools::isHexFormatString(send_text)) return false;
+		send_hex = QByteArray::fromHex(send_text.toLatin1());
 		serial->write(send_hex);
-		qDebug() << "发送数据：" << send_hex;
-		return 1;
+		qDebug() << "send data：" << send_hex;
+		return true;
 	}
-	//发送字符串
+	//send string
 	else
 	{
-		//latin-1字符集是ascii字符集的扩展
 		QByteArray send_byte = send_text.toLatin1();
 		serial->write(send_byte);
-		qDebug() << "发送数据：" << send_byte;
-		return 1;
+		qDebug() << "send data：" << send_byte;
+		return true;
 	}
 
 }
 
-//recive string data
 bool portComm::onStrReceive()
 {
 
 	qDebug() << "receive!";
 	QByteArray receive_byte = serial->readAll();
-	if (ui.rb_hex_recive->isChecked()) 
+	if (ui.rb_hex_recive->isChecked())
 	{
-		ui.pte_receive->appendPlainText(/*"receive data:" + */receive_byte.toHex());
+		ui.pte_receive->appendPlainText("receive data: " + receive_byte.toHex());
 		return 1;
 	}
-	else if (ui.rb_str_recive->isChecked()) 
+	else if (ui.rb_str_recive->isChecked())
 	{
-		ui.pte_receive->appendPlainText(/*"receive data:" + */receive_byte);
+		ui.pte_receive->appendPlainText("receive data: " + receive_byte);
 		return 1;
 	}
 	return 0;
 }
 
-//modbusrtu协议发送，构建modbusRTU协议数据帧
-bool portComm::onBusSend() 
+bool portComm::onBusSend()
 {
 	//01 03 00 01 00 01
 	QByteArray byte_ary = QByteArray::fromHex(ui.pte_send_1->toPlainText().toLatin1());
@@ -235,21 +228,20 @@ bool portComm::onBusSend()
 	return 1;
 }
 
-//modbusrtu协议接收
-bool portComm::onBusReceive() 
+bool portComm::onBusReceive()
 {
 	qDebug() << "bus_receive!";
 	QByteArray receive_byte = serial->readAll();
 	//用两字节的short int存储crc位的两个字节
 	unsigned short receive_crc = receive_byte[receive_byte.size() - 2] << 8 | receive_byte[receive_byte.size() - 1];
 	QByteArray receive_data;
-	for (int i = 0; i < (receive_byte.size() - 2); i++) 
+	for (int i = 0; i < (receive_byte.size() - 2); i++)
 	{
 		receive_data.append(receive_byte[i]);
 	}
 	//用两字节的short int存储crc位的两个字节
 	unsigned short calcu_crc = calculateCrc((unsigned char*)receive_data.constData(), receive_data.size());
-	if (calcu_crc != receive_crc) 
+	if (calcu_crc != receive_crc)
 	{
 		ui.pte_receive->appendPlainText("receive data: " + receive_byte.toHex());
 		QMessageBox qmb_error;
@@ -265,12 +257,11 @@ bool portComm::onBusReceive()
 	return 1;
 }
 
-//检验返回数据（modbusRTU）的校验位
 unsigned char portComm::checkReceiveCrc(const unsigned char* data, int length) {
 	return 1;
 }
 
-// ModBus协议中，CRC校验码计算方法为：
+// CRC校验码计算方法为：
 //1．预置1个16位的寄存器为十六进制FFFF（即全为1）；称此寄存器为CRC寄存器；
 //2．把第一个8位二进制数据（既通讯信息帧的第一个字节）与16位的CRC寄存器的低8位相异或，把结果放于CRC寄存器；
 //3．把CRC寄存器的内容右移一位（朝低位）用0填补最高位，并检查右移后的移出位；
@@ -300,20 +291,18 @@ int portComm::calculateCrc(const unsigned char* data, int length)
 	return crc;
 }
 
-//checked to recive hex data
 void portComm::onReceiveHex(bool a) {
 	ui.rb_str_recive->setChecked(0);
 	/*QString text_temp = ui.pte_receive->toPlainText();
 	ui.pte_receive->setPlainText(text_temp.toUtf8().toHex());*/
 }
-//checked to recive string data
+
 void portComm::onReceiveStr(bool a) {
 	ui.rb_hex_recive->setChecked(0);
 	/*QString text_temp = ui.pte_receive->toPlainText();
 	QByteArray byte_temp = QByteArray::fromHex(text_temp.toLatin1());
 	ui.pte_receive->setPlainText(byte_temp);*/
 }
-
 
 //将字符串各个字符转换为对应的十六进制数
 QString portComm::string2Hex(const QString& str)

@@ -98,10 +98,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="tools.cpp" />
     <QtRcc Include="portComm.qrc" />
     <QtUic Include="portComm.ui" />
     <QtMoc Include="portComm.h" />
-    <ClCompile Include="BusTcp.cpp" />
+    <ClCompile Include="busTcp.cpp" />
     <ClCompile Include="portComm.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -110,6 +111,9 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="busTcp.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="tools.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

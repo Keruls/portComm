@@ -2,7 +2,8 @@
 
 BusTcp::BusTcp(QObject* parent) :QObject(parent) {
 	bus_client = new QModbusTcpClient();
-	reply = nullptr;
+	read_reply = nullptr;
+	write_reply = nullptr;
 	connect_state = false;
 	timer = new QTimer();
 	connect(timer, &QTimer::timeout, this, [&]() {if (!connect_state) bus_client->connectDevice(); });// listen, reConnect to slave.
@@ -10,7 +11,8 @@ BusTcp::BusTcp(QObject* parent) :QObject(parent) {
 }
 BusTcp::~BusTcp()
 {
-	if (connect_state) bus_client->disconnectDevice();		
+	if (read_reply) { read_reply->deleteLater(); read_reply = nullptr; }
+	if (write_reply) { write_reply->deleteLater(); write_reply = nullptr; }
 	bus_client->deleteLater();
 	bus_client = nullptr;
 }
@@ -25,14 +27,15 @@ bool BusTcp::connectSlave(QString net_adress, QString net_port)
 	}
 	return true;
 }
+
 void BusTcp::onStateChanged(QModbusDevice::State state)
 {
-	if (state == QModbusDevice::ConnectedState) 
+	if (state == QModbusDevice::ConnectedState)
 	{
 		qDebug() << "Device connected!";
 		connect_state = true;
 		emit connectState(true);
-		if (!timer->isActive()) 
+		if (!timer->isActive())
 		{
 			timer->start(3000);
 		}
@@ -44,23 +47,30 @@ void BusTcp::onStateChanged(QModbusDevice::State state)
 		emit connectState(false);
 	}
 }
-bool BusTcp::getConnectState() { return connect_state; }
-void BusTcp::disconnectSlave() { 
+
+bool BusTcp::getConnectState() 
+{ 
+	//if (!connect_state) qDebug() << "Please connect to the slave first.";
+	return connect_state; 
+}
+
+void BusTcp::disconnectSlave() {
 	if (connect_state) {
 		bus_client->disconnectDevice();
 		timer->stop();//active close connect, no longer reConnect to slave.
 	}
 }
+
 bool BusTcp::sendRead(int index, int salve_id, int start_adress, quint16 num)
 {
-	if (!connect_state) 
+	if (!connect_state)
 	{
 		qDebug() << "Please connect to slave first.";
 		return false;
 	}
 
 	QModbusDataUnit read_unit;
-	switch (index) 
+	switch (index)
 	{
 	case 0: read_unit = QModbusDataUnit(QModbusDataUnit::HoldingRegisters, start_adress, num); break;
 	case 1: read_unit = QModbusDataUnit(QModbusDataUnit::InputRegisters, start_adress, num); break;
@@ -68,23 +78,24 @@ bool BusTcp::sendRead(int index, int salve_id, int start_adress, quint16 num)
 	case 3: read_unit = QModbusDataUnit(QModbusDataUnit::DiscreteInputs, start_adress, num); break;
 	}
 
-	reply = bus_client->sendReadRequest(read_unit, salve_id);
-	connect(reply, &QModbusReply::finished, this, &BusTcp::onReplyFinish);
-	if (!reply) 
+	read_reply = bus_client->sendReadRequest(read_unit, salve_id);
+	if (!read_reply)
 	{
-		qDebug() << "Send request fail.";
+		qDebug() << "Send read request fail.";
 		return false;
 	}
+	connect(read_reply, &QModbusReply::finished, this, &BusTcp::onReadReplyFinished);
 	return true;
 }
-void BusTcp::onReplyFinish()
+
+void BusTcp::onReadReplyFinished()
 {
-	if (reply->error() == QModbusDevice::NoError) 
+	if (read_reply->error() == QModbusDevice::NoError)
 	{
-		const QModbusDataUnit data = reply->result();
-		quint16 start_address = data.startAddress();
+		const QModbusDataUnit data = read_reply->result();
+		int start_address = data.startAddress();
 		QString rec_data;
-		for (quint16 i = 0; i < data.valueCount(); ++i) 
+		for (int i = 0; i < data.valueCount(); ++i)
 		{
 			quint16 value = data.value(i);
 			rec_data += "Register" + QString::number(i + start_address, 10) + ": " + QString::number(value, 10) + "\n";
@@ -92,12 +103,91 @@ void BusTcp::onReplyFinish()
 		qDebug() << rec_data;
 		emit receiveData(rec_data);
 	}
-	else qDebug() << "Response error: " << reply->errorString();
-	reply->deleteLater();//clear reply data after read handle finish.
-	reply = nullptr;
+	else 
+		qDebug() << "Response error: " << read_reply->errorString();
+	read_reply->deleteLater();//clear reply data after read handle finish.
+	read_reply = nullptr;
 }
 
-bool BusTcp::sendWrite(int index, int salve_id, int start_adress, quint16 num)
+bool BusTcp::sendWrite(int index, int salve_id, int start_address, quint16 num, QString data)
 {
-	return 1;
+	if (!connect_state)
+	{
+		qDebug() << "Please connect to the slave first.";
+		return false;
+	}
+
+	QModbusDataUnit data_unit;
+	switch (index)
+	{
+	case 0: writeHoldingRegister(data_unit, start_address, data, salve_id); break;
+	case 1: writeInputRegisters(data_unit, start_address, data, salve_id); break;
+	case 2: writeCoils(data_unit, start_address, data, salve_id); break;
+	case 3: writeDiscreteInputs(data_unit, start_address, data, salve_id); break;
+	}
+
+	write_reply = bus_client->sendWriteRequest(data_unit, salve_id);
+	if (!write_reply)
+	{
+		qDebug() << "Send write request fail.";
+		return false;
+	}
+	connect(write_reply, &QModbusReply::finished, this, &BusTcp::onWriteReplyFinished);
+	return true;
+}
+
+void BusTcp::onWriteReplyFinished()
+{
+	if (write_reply->error() != QModbusDevice::NoError)
+	{
+		qDebug() << "response error: " << write_reply->errorString();
+	}
+	write_reply->deleteLater();
+}
+
+bool BusTcp::writeHoldingRegister(QModbusDataUnit& data_unit, int start_address, QString data, int salve_id)
+{
+	if (!tools::isHexFormatString(data, 4, ':')) return false;
+	QList<quint16> write_data;
+	QList<QString> split_list = data.split(':');
+	foreach(QString i, split_list) {
+		qDebug() << i;
+		write_data.append(i.toUShort(nullptr, 16));
+	}
+	data_unit = QModbusDataUnit(QModbusDataUnit::HoldingRegisters, start_address, write_data);
+	return true;
+}
+
+bool BusTcp::writeCoils(QModbusDataUnit& data_unit, int start_address, QString data, int salve_id)
+{
+	if (!tools::isBinaryFormatString(data)) return false;
+	QList<quint16> write_data;
+	foreach(QChar c, data)
+	{
+		if (c == ':') continue;
+		write_data.append(c.toLatin1() - '0');//int 49('1')- int 48('0') = int 0 / int 48('0')- int 48('0') = int 0, int range(0~65535)int = (uint16_t = quint16 = unsign short int)
+	}
+	data_unit = QModbusDataUnit(QModbusDataUnit::Coils, start_address, write_data);
+	return false;
+}
+
+bool BusTcp::writeInputRegisters(QModbusDataUnit& data_unit, int start_address, QString data, int salve_id)
+{
+	tools::warnningBox("You shouldn't write InputRegister!");
+
+	// If you insist on doing this...
+	//writeHoldingRegister(data_unit, start_address, data, salve_id);
+	//data_unit.setRegisterType(QModbusDataUnit::HoldingRegisters);
+	
+	return false;
+}
+
+bool BusTcp::writeDiscreteInputs(QModbusDataUnit& data_unit, int start_address, QString data, int salve_id)
+{
+	tools::warnningBox("You shouldn't write DiscreteInputs!");
+
+	// If you insist on doing this...
+	// writeCoils(data_unit, start_address, data, salve_id);
+	//data_unit.setRegisterType(QModbusDataUnit::InputRegisters);
+	return false;
 }

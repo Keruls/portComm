@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>731</width>
-    <height>463</height>
+    <height>464</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -187,7 +187,7 @@
      <bool>false</bool>
     </property>
     <property name="placeholderText">
-     <string>此处显示接收到的数据...</string>
+     <string>output window..</string>
     </property>
    </widget>
    <widget class="QTabWidget" name="tabWidget">
@@ -212,63 +212,79 @@
      <attribute name="title">
       <string>string</string>
      </attribute>
-     <widget class="QWidget" name="layoutWidget">
+     <widget class="QGroupBox" name="groupBox_2">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>681</width>
-        <height>131</height>
+        <x>605</x>
+        <y>11</y>
+        <width>91</width>
+        <height>129</height>
        </rect>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
-       <item>
-        <widget class="QPlainTextEdit" name="pte_send">
-         <property name="placeholderText">
-          <string>在此输入待发送数据...</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QGroupBox" name="groupBox_2">
-         <property name="title">
-          <string/>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_2">
-          <item>
-           <widget class="QRadioButton" name="rb_hex_send">
-            <property name="text">
-             <string>send HEX</string>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>16</width>
-              <height>16</height>
-             </size>
-            </property>
-            <property name="autoRepeat">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pb_send_data">
-            <property name="text">
-             <string>send data</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pb_clear_send">
-            <property name="text">
-             <string>clear input</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-      </layout>
+      <property name="title">
+       <string/>
+      </property>
+      <widget class="QRadioButton" name="rb_hex_send">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>15</y>
+         <width>79</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>send HEX</string>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>16</width>
+         <height>16</height>
+        </size>
+       </property>
+       <property name="autoRepeat">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="pb_send_data">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>51</y>
+         <width>75</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>send data</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="pb_clear_send">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>88</y>
+         <width>75</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>clear input</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QPlainTextEdit" name="pte_send">
+      <property name="geometry">
+       <rect>
+        <x>11</x>
+        <y>11</y>
+        <width>585</width>
+        <height>129</height>
+       </rect>
+      </property>
+      <property name="placeholderText">
+       <string>input data string, or hex string split by &quot;:&quot;.</string>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="modus_rtu">
@@ -285,7 +301,7 @@
        </rect>
       </property>
       <property name="placeholderText">
-       <string>调整中，暂不可用......</string>
+       <string>xxxxxxxxxxxx</string>
       </property>
      </widget>
      <widget class="QPushButton" name="pb_send_busRTU_2">
@@ -327,7 +343,7 @@
        <string/>
       </property>
       <property name="placeholderText">
-       <string>输入</string>
+       <string>xxxxx</string>
       </property>
      </widget>
     </widget>
@@ -354,9 +370,9 @@
        <property name="geometry">
         <rect>
          <x>350</x>
-         <y>10</y>
+         <y>8</y>
          <width>40</width>
-         <height>20</height>
+         <height>25</height>
         </rect>
        </property>
       </widget>
@@ -364,9 +380,9 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>10</y>
+         <y>8</y>
          <width>100</width>
-         <height>20</height>
+         <height>25</height>
         </rect>
        </property>
        <property name="text">
@@ -380,9 +396,9 @@
        <property name="geometry">
         <rect>
          <x>110</x>
-         <y>10</y>
+         <y>8</y>
          <width>120</width>
-         <height>20</height>
+         <height>25</height>
         </rect>
        </property>
       </widget>
@@ -390,9 +406,9 @@
        <property name="geometry">
         <rect>
          <x>260</x>
-         <y>10</y>
-         <width>91</width>
-         <height>20</height>
+         <y>8</y>
+         <width>90</width>
+         <height>25</height>
         </rect>
        </property>
        <property name="text">
@@ -406,9 +422,9 @@
        <property name="geometry">
         <rect>
          <x>410</x>
-         <y>10</y>
+         <y>8</y>
          <width>75</width>
-         <height>21</height>
+         <height>25</height>
         </rect>
        </property>
        <property name="text">
@@ -422,7 +438,7 @@
         <x>10</x>
         <y>80</y>
         <width>685</width>
-        <height>71</height>
+        <height>72</height>
        </rect>
       </property>
       <property name="title">
@@ -434,8 +450,14 @@
          <x>350</x>
          <y>10</y>
          <width>40</width>
-         <height>20</height>
+         <height>25</height>
         </rect>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+       <property name="placeholderText">
+        <string>xxxxx</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="le_bustcp_data_w">
@@ -444,8 +466,11 @@
          <x>110</x>
          <y>40</y>
          <width>280</width>
-         <height>20</height>
+         <height>25</height>
         </rect>
+       </property>
+       <property name="placeholderText">
+        <string>input 2 bytes hex num, split by &quot;:&quot;.</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="le_bustcp_addr_w">
@@ -454,8 +479,14 @@
          <x>110</x>
          <y>10</y>
          <width>120</width>
-         <height>20</height>
+         <height>25</height>
         </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="placeholderText">
+        <string/>
        </property>
       </widget>
       <widget class="QLabel" name="label_5">
@@ -464,7 +495,7 @@
          <x>260</x>
          <y>10</y>
          <width>91</width>
-         <height>20</height>
+         <height>25</height>
         </rect>
        </property>
        <property name="text">
@@ -480,7 +511,7 @@
          <x>10</x>
          <y>10</y>
          <width>100</width>
-         <height>20</height>
+         <height>25</height>
         </rect>
        </property>
        <property name="text">
@@ -496,7 +527,7 @@
          <x>10</x>
          <y>40</y>
          <width>100</width>
-         <height>20</height>
+         <height>25</height>
         </rect>
        </property>
        <property name="text">
@@ -512,7 +543,7 @@
          <x>410</x>
          <y>10</y>
          <width>75</width>
-         <height>51</height>
+         <height>50</height>
         </rect>
        </property>
        <property name="text">
@@ -523,20 +554,20 @@
      <widget class="QLineEdit" name="le_bustcp_ip">
       <property name="geometry">
        <rect>
-        <x>50</x>
-        <y>10</y>
+        <x>40</x>
+        <y>5</y>
         <width>120</width>
-        <height>20</height>
+        <height>25</height>
        </rect>
       </property>
      </widget>
      <widget class="QLabel" name="label_7">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>10</y>
+        <x>10</x>
+        <y>5</y>
         <width>31</width>
-        <height>20</height>
+        <height>25</height>
        </rect>
       </property>
       <property name="text">
@@ -549,20 +580,20 @@
      <widget class="QLineEdit" name="le_bustcp_port">
       <property name="geometry">
        <rect>
-        <x>220</x>
-        <y>10</y>
+        <x>210</x>
+        <y>5</y>
         <width>40</width>
-        <height>20</height>
+        <height>25</height>
        </rect>
       </property>
      </widget>
      <widget class="QLabel" name="label_8">
       <property name="geometry">
        <rect>
-        <x>180</x>
-        <y>10</y>
+        <x>170</x>
+        <y>5</y>
         <width>41</width>
-        <height>20</height>
+        <height>25</height>
        </rect>
       </property>
       <property name="text">
@@ -576,9 +607,9 @@
       <property name="geometry">
        <rect>
         <x>580</x>
-        <y>10</y>
-        <width>75</width>
-        <height>21</height>
+        <y>5</y>
+        <width>115</width>
+        <height>25</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -591,20 +622,20 @@
      <widget class="QLineEdit" name="le_bustcp_slaveid">
       <property name="geometry">
        <rect>
-        <x>335</x>
-        <y>10</y>
-        <width>41</width>
-        <height>20</height>
+        <x>325</x>
+        <y>5</y>
+        <width>40</width>
+        <height>25</height>
        </rect>
       </property>
      </widget>
      <widget class="QLabel" name="label_10">
       <property name="geometry">
        <rect>
-        <x>275</x>
-        <y>10</y>
+        <x>265</x>
+        <y>5</y>
         <width>61</width>
-        <height>20</height>
+        <height>25</height>
        </rect>
       </property>
       <property name="text">
@@ -620,20 +651,20 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>440</x>
-        <y>10</y>
-        <width>120</width>
-        <height>20</height>
+        <x>430</x>
+        <y>5</y>
+        <width>130</width>
+        <height>25</height>
        </rect>
       </property>
      </widget>
      <widget class="QLabel" name="label">
       <property name="geometry">
        <rect>
-        <x>395</x>
-        <y>10</y>
+        <x>385</x>
+        <y>5</y>
         <width>45</width>
-        <height>20</height>
+        <height>25</height>
        </rect>
       </property>
       <property name="text">
@@ -662,6 +693,9 @@
       <height>41</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
     <property name="title">
      <string/>
     </property>
@@ -669,9 +703,9 @@
      <property name="geometry">
       <rect>
        <x>11</x>
-       <y>10</y>
+       <y>9</y>
        <width>85</width>
-       <height>19</height>
+       <height>20</height>
       </rect>
      </property>
      <property name="text">
@@ -694,9 +728,9 @@
      <property name="geometry">
       <rect>
        <x>308</x>
-       <y>8</y>
+       <y>9</y>
        <width>75</width>
-       <height>23</height>
+       <height>25</height>
       </rect>
      </property>
      <property name="text">
@@ -707,9 +741,9 @@
      <property name="geometry">
       <rect>
        <x>159</x>
-       <y>10</y>
+       <y>9</y>
        <width>95</width>
-       <height>19</height>
+       <height>20</height>
       </rect>
      </property>
      <property name="text">
