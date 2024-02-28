@@ -120,6 +120,7 @@ bool BusTcp::sendWrite(int index, int salve_id, int start_address, quint16 num, 
 	QModbusDataUnit data_unit;
 	switch (index)
 	{
+		//data_unit at here is passing reference, maybe this way the readability is bad.
 	case 0: writeHoldingRegister(data_unit, start_address, data, salve_id); break;
 	case 1: writeInputRegisters(data_unit, start_address, data, salve_id); break;
 	case 2: writeCoils(data_unit, start_address, data, salve_id); break;
