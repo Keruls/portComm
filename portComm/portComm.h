@@ -23,23 +23,23 @@ public:
 	portComm(QWidget* parent = nullptr);
 	~portComm();
 public slots:
-	//open serial port
+	//open serial port.
 	void onPortOpen();
-	//send string data
+	//send string data.
 	bool onStrSend();
-	//recive string data
+	//recive string data.
 	bool onStrReceive();
-	//modbusrtu协议接收
+	//modbusrtu协议接收.
 	bool onBusReceive();
-	//modbusrtu协议发送，构建modbusRTU协议数据帧
+	//modbusrtu协议发送，构建modbusRTU协议数据帧.
 	bool onBusSend();
-	//checked to recive hex data
+	//checked to recive hex data.
 	void onReceiveHex(bool a);
-	//checked to recive string data
+	//checked to recive string data.
 	void onReceiveStr(bool a);
 public:
 	int calculateCrc(const unsigned char* data, int length);
-	//检验返回数据（modbusRTU）的校验位
+	// check the crc bytes in response data.
 	unsigned char checkReceiveCrc(const unsigned char* data, int length);
 private:
 	//default serial port setting

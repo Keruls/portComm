@@ -42,10 +42,10 @@ bool tools::isHexFormatString(QString raw_str, int unit_max_length, QChar split_
 }
 bool tools::isBinaryFormatString(QString raw_str, QChar split_char)
 {
-	QVector<QChar> vaild = { '0', '1', ' ', ':'};
+	QVector<QChar> vaild_char = { '0', '1', ' ', ':'};
 	foreach(QChar c , raw_str)
 	{
-		if (vaild.indexOf(c) == -1)
+		if (vaild_char.indexOf(c) == -1)
 		{
 			warnningBox("Check: " + (QString)c + ", The value must be '0' or '1'.");
 			return false;
